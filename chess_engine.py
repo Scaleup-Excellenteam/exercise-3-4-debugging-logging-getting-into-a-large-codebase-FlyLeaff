@@ -338,8 +338,10 @@ class game_state:
 
                             # move rook
                             self.get_piece(0, 0).change_col_number(2)
+
                             self.board[0][2] = self.board[0][0]
                             self.board[0][0] = Player.EMPTY
+
                             self.white_king_can_castle[0] = False
                             self.white_king_can_castle[1] = False
 
@@ -348,11 +350,12 @@ class game_state:
                             move = chess_move(starting_square, ending_square, self, self._is_check)
                             move.castling_move((0, 7), (0, 4), self)
                             self.move_log.append(move)
-
                             # move rook
                             self.get_piece(0, 7).change_col_number(4)
+
                             self.board[0][4] = self.board[0][7]
                             self.board[0][7] = Player.EMPTY
+
                             self.white_king_can_castle[0] = False
                             self.white_king_can_castle[2] = False
                         else:
@@ -371,6 +374,7 @@ class game_state:
                             # move rook
                             self.board[7][2] = self.board[7][0]
                             self.board[7][0] = Player.EMPTY
+
                             self.black_king_can_castle[0] = False
                             self.black_king_can_castle[1] = False
                         elif moved_to_piece == Player.EMPTY and next_square_col == 5 and self.king_can_castle_right(
@@ -380,9 +384,11 @@ class game_state:
                             self.move_log.append(move)
 
                             self.get_piece(7, 7).change_col_number(4)
+
                             # move rook
                             self.board[7][4] = self.board[7][7]
                             self.board[7][7] = Player.EMPTY
+
                             self.black_king_can_castle[0] = False
                             self.black_king_can_castle[2] = False
                         else:
@@ -390,7 +396,6 @@ class game_state:
                             self.move_log.append(move)
                             self.black_king_can_castle[0] = False
                         self._black_king_location = (next_square_row, next_square_col)
-                        # self.can_en_passant_bool = False  WHAT IS THIS
                 elif moving_piece.get_name() == "r":
                     if moving_piece.is_player(Player.PLAYER_1) and current_square_col == 0:
                         self.white_king_can_castle[1] = False
@@ -464,7 +469,6 @@ class game_state:
                 pass
 
     
-    
     def undo_move(self):
         if self.move_log:
             undoing_move = self.move_log.pop()
@@ -482,20 +486,21 @@ class game_state:
                 self.board[undoing_move.rook_ending_square[0]][undoing_move.rook_ending_square[1]] = Player.EMPTY
                 undoing_move.moving_rook.change_row_number(undoing_move.rook_starting_square[0])
                 undoing_move.moving_rook.change_col_number(undoing_move.rook_starting_square[1])
-                if undoing_move.moving_piece is Player.PLAYER_1:
+                
+                if undoing_move.moving_piece.is_player(Player.PLAYER_1):
                     if undoing_move.rook_starting_square[1] == 0:
-                        self.white_king_can_castle[0] = True
-                        self.white_king_can_castle[1] = True
+                        self.white_king_can_castle[1] = True  
+                        #--------#
+                        #castling
                     elif undoing_move.rook_starting_square[1] == 7:
-                        self.white_king_can_castle[0] = True
-                        self.white_king_can_castle[2] = True
+                        self.white_king_can_castle[2] = True  
+                    self.white_king_can_castle[0] = True 
                 else:
                     if undoing_move.rook_starting_square[1] == 0:
-                        self.black_king_can_castle[0] = True
-                        self.black_king_can_castle[1] = True
+                        self.black_king_can_castle[1] = True  
                     elif undoing_move.rook_starting_square[1] == 7:
-                        self.black_king_can_castle[0] = True
-                        self.black_king_can_castle[2] = True
+                        self.black_king_can_castle[2] = True  
+                    self.black_king_can_castle[0] = True  
             elif undoing_move.pawn_promoted is True:
                 self.board[undoing_move.starting_square_row][
                     undoing_move.starting_square_col] = undoing_move.moving_piece
@@ -538,11 +543,9 @@ class game_state:
                         undoing_move.ending_square_col)
 
             self.white_turn = not self.white_turn
-            # if undoing_move.in_check:
-            #     self._is_check = True
-            if undoing_move.moving_piece.get_name() is 'k' and undoing_move.moving_piece.get_player() is Player.PLAYER_1:
+            if undoing_move.moving_piece.get_name() == 'k' and undoing_move.moving_piece.get_player() == Player.PLAYER_1:
                 self._white_king_location = (undoing_move.starting_square_row, undoing_move.starting_square_col)
-            elif undoing_move.moving_piece.get_name() is 'k' and undoing_move.moving_piece.get_player() is Player.PLAYER_2:
+            elif undoing_move.moving_piece.get_name() == 'k' and undoing_move.moving_piece.get_player() == Player.PLAYER_2:
                 self._black_king_location = (undoing_move.starting_square_row, undoing_move.starting_square_col)
 
             return undoing_move
