@@ -153,15 +153,15 @@ def main():
                             player_clicks = []
                             valid_moves = []
 
-                            if human_player is 'w':
+                            if human_player == 'w':
                                 ai_move = ai.minimax_white(game_state, 3, -100000, 100000, True, Player.PLAYER_2)
                                 game_state.move_piece(ai_move[0], ai_move[1], True)
-                            elif human_player is 'b':
+                            elif human_player == 'b':
                                 ai_move = ai.minimax_black(game_state, 3, -100000, 100000, True, Player.PLAYER_1)
                                 game_state.move_piece(ai_move[0], ai_move[1], True)
                     else:
                         valid_moves = game_state.get_valid_moves((row, col))
-                        if valid_moves is None:
+                        if valid_moves == None:
                             valid_moves = []
             elif e.type == py.KEYDOWN:
                 if e.key == py.K_r:
