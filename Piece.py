@@ -83,8 +83,8 @@ class Rook(Piece):
         # Left of the Rook
         self._breaking_point = False
         while self.get_col_number() - self._left >= 0 and not self._breaking_point:
-            # when the square to the left is empty
-            if game_state.get_piece(self.get_row_number(), self.get_col_number() - self._left) is Player.EMPTY:
+            # when the square to the left == empty
+            if game_state.get_piece(self.get_row_number(), self.get_col_number() - self._left) == Player.EMPTY:
                 _peaceful_moves.append((self.get_row_number(), self.get_col_number() - self._left))
                 self._left += 1
             # when the square contains an opposing piece
@@ -98,8 +98,8 @@ class Rook(Piece):
         # Right of the Rook
         self._breaking_point = False
         while self.get_col_number() + self._right < 8 and not self._breaking_point:
-            # when the square to the left is empty
-            if game_state.get_piece(self.get_row_number(), self.get_col_number() + self._right) is Player.EMPTY:
+            # when the square to the left == empty
+            if game_state.get_piece(self.get_row_number(), self.get_col_number() + self._right) == Player.EMPTY:
                 _peaceful_moves.append((self.get_row_number(), self.get_col_number() + self._right))
                 self._right += 1
             # when the square contains an opposing piece
@@ -113,8 +113,8 @@ class Rook(Piece):
         # Below the Rook
         self._breaking_point = False
         while self.get_row_number() + self._down < 8 and not self._breaking_point:
-            # when the square to the left is empty
-            if game_state.get_piece(self.get_row_number() + self._down, self.get_col_number()) is Player.EMPTY:
+            # when the square to the left == empty
+            if game_state.get_piece(self.get_row_number() + self._down, self.get_col_number()) == Player.EMPTY:
                 _peaceful_moves.append((self.get_row_number() + self._down, self.get_col_number()))
                 self._down += 1
             # when the square contains an opposing piece
@@ -128,8 +128,8 @@ class Rook(Piece):
         # Above the Rook
         self._breaking_point = False
         while self.get_row_number() - self._up >= 0 and not self._breaking_point:
-            # when the square to the left is empty
-            if game_state.get_piece(self.get_row_number() - self._up, self.get_col_number()) is Player.EMPTY:
+            # when the square to the left == empty
+            if game_state.get_piece(self.get_row_number() - self._up, self.get_col_number()) == Player.EMPTY:
                 _peaceful_moves.append((self.get_row_number() - self._up, self.get_col_number()))
                 self._up += 1
             # when the square contains an opposing piece
@@ -153,7 +153,7 @@ class Knight(Piece):
             new_row = self.get_row_number() + row_change[i]
             new_col = self.get_col_number() + col_change[i]
             evaluating_square = game_state.get_piece(new_row, new_col)
-            # when the square with new_row and new_col is empty
+            # when the square with new_row and new_col == empty
             if evaluating_square == Player.EMPTY:
                 _moves.append((new_row, new_col))
         return _moves
@@ -168,8 +168,8 @@ class Knight(Piece):
             new_col = self.get_col_number() + col_change[i]
             if 0 <= new_row < 8 and 0 <= new_col < 8:   # FIX added checks to make sure col and row are in bounds
                 evaluating_square = game_state.get_piece(new_row, new_col)
-                # when the square with new_row and new_col contains a valid piece and the player is different
-                if game_state.is_valid_piece(new_row, new_col) and self.get_player() is not evaluating_square.get_player():
+                # when the square with new_row and new_col contains a valid piece and the player == different
+                if game_state.is_valid_piece(new_row, new_col) and self.get_player() != evaluating_square.get_player():
                     _moves.append((new_row, new_col))
         return _moves
 
@@ -185,15 +185,15 @@ class Knight(Piece):
         #     new_row = current_square_row + row_change[i]
         #     new_col = current_square_col + col_change[i]
         #     evaluating_square = board.get_piece(new_row, new_col)
-        #     # when the square with new_row and new_col is empty
+        #     # when the square with new_row and new_col == empty
         #     if evaluating_square == Player.EMPTY:
         #         _moves.append((new_row, new_col))
         #     # when the square with new_row and new_col contains a valid piece
         #     if board.is_valid_piece(new_row, new_col):
-        #         # when the knight is white and the piece near the king is black
+        #         # when the knight == white and the piece near the king == black
         #         if self.is_player(Player.PLAYER_1) and evaluating_square.is_player(Player.PLAYER_2):
         #             _moves.append((new_row, new_col))
-        #         # when the knight is black and the piece near the king is white
+        #         # when the knight == black and the piece near the king == white
         #         elif self.is_player(Player.PLAYER_2) and evaluating_square.is_player(Player.PLAYER_1):
         #             _moves.append((new_row, new_col))
         # return _moves
@@ -222,8 +222,8 @@ class Bishop(Piece):
         self._left = 1
         self._right = 1
         while self.get_col_number() - self._left >= 0 and self.get_row_number() - self._up >= 0 and not self._breaking_point:
-            # when the square is empty
-            if game_state.get_piece(self.get_row_number() - self._up, self.get_col_number() - self._left) is Player.EMPTY:
+            # when the square == empty
+            if game_state.get_piece(self.get_row_number() - self._up, self.get_col_number() - self._left) == Player.EMPTY:
                 _peaceful_moves.append((self.get_row_number() - self._up, self.get_col_number() - self._left))
                 self._left += 1
                 self._up += 1
@@ -242,8 +242,8 @@ class Bishop(Piece):
         self._left = 1
         self._right = 1
         while self.get_col_number() + self._right < 8 and self.get_row_number() - self._up >= 0 and not self._breaking_point:
-            # when the square is empty
-            if game_state.get_piece(self.get_row_number() - self._up, self.get_col_number() + self._right) is Player.EMPTY:
+            # when the square == empty
+            if game_state.get_piece(self.get_row_number() - self._up, self.get_col_number() + self._right) == Player.EMPTY:
                 _peaceful_moves.append((self.get_row_number() - self._up, self.get_col_number() + self._right))
                 self._right += 1
                 self._up += 1
@@ -262,8 +262,8 @@ class Bishop(Piece):
         self._left = 1
         self._right = 1
         while self.get_col_number() - self._left >= 0 and self.get_row_number() + self._down < 8 and not self._breaking_point:
-            # when the square is empty
-            if game_state.get_piece(self.get_row_number() + self._down, self.get_col_number() - self._left) is Player.EMPTY:
+            # when the square == empty
+            if game_state.get_piece(self.get_row_number() + self._down, self.get_col_number() - self._left) == Player.EMPTY:
                 _peaceful_moves.append((self.get_row_number() + self._down, self.get_col_number() - self._left))
                 self._down += 1
                 self._left += 1
@@ -282,8 +282,8 @@ class Bishop(Piece):
         self._left = 1
         self._right = 1
         while self.get_col_number() + self._right < 8 and self.get_row_number() + self._down < 8 and not self._breaking_point:
-            # when the square is empty
-            if game_state.get_piece(self.get_row_number() + self._down, self.get_col_number() + self._right) is Player.EMPTY:
+            # when the square == empty
+            if game_state.get_piece(self.get_row_number() + self._down, self.get_col_number() + self._right) == Player.EMPTY:
                 _peaceful_moves.append((self.get_row_number() + self._down, self.get_col_number() + self._right))
                 self._down += 1
                 self._right += 1
@@ -314,7 +314,7 @@ class Pawn(Piece):
                 _moves.append((self.get_row_number() + 1, self.get_col_number() + 1))
             if game_state.can_en_passant(self.get_row_number(), self.get_col_number()):
                 _moves.append((self.get_row_number() + 1, game_state.previous_piece_en_passant()[1]))
-        # when the pawn is a black piece
+        # when the pawn == a black piece
         elif self.is_player(Player.PLAYER_2):
             # when the square to the top left of the starting_square has a white piece
             if game_state.is_valid_piece(self.get_row_number() - 1, self.get_col_number() - 1) and \
@@ -330,9 +330,9 @@ class Pawn(Piece):
 
     def get_valid_peaceful_moves(self, game_state):
         _moves = []
-        # when the pawn is a white piece
+        # when the pawn == a white piece
         if self.is_player(Player.PLAYER_1):
-            # when the square right below the starting_square is empty
+            # when the square right below the starting_square == empty
             if game_state.get_piece(self.get_row_number() + 1, self.get_col_number()) == Player.EMPTY:
                 # when the pawn has not been moved yet
                 if self.get_row_number() == 1 and game_state.get_piece(self.get_row_number() + 2,
@@ -342,9 +342,9 @@ class Pawn(Piece):
                 # when the pawn has already been moved
                 else:
                     _moves.append((self.get_row_number() + 1, self.get_col_number()))
-        # when the pawn is a black piece
+        # when the pawn == a black piece
         elif self.is_player(Player.PLAYER_2):
-            # when the square right above is empty
+            # when the square right above == empty
             if game_state.get_piece(self.get_row_number() - 1, self.get_col_number()) == Player.EMPTY:
                 # when the pawn has not been moved yet
                 if self.get_row_number() == 6 and game_state.get_piece(self.get_row_number() - 2,
@@ -361,9 +361,9 @@ class Pawn(Piece):
         # current_square_col = self.col_number  # The integer col value of the starting square
         #
         # _moves = []# self._moves.clear()
-        # # when the pawn is a white piece
+        # # when the pawn == a white piece
         # if self.is_player(Player.PLAYER_1):
-        #     # when the square right below the starting_square is empty
+        #     # when the square right below the starting_square == empty
         #     if game_state.get_piece(current_square_row + 1, current_square_col) == Player.EMPTY:
         #         # when the pawn has not been moved yet
         #         if self.get_row_number() == 1 and game_state.get_piece(current_square_row +2, current_square_col) == Player.EMPTY:
@@ -382,9 +382,9 @@ class Pawn(Piece):
         #         _moves.append((current_square_row + 1, current_square_col + 1))
         #     if game_state.can_en_passant(current_square_row, current_square_col):
         #         _moves.append((current_square_row + 1, game_state.previous_piece_en_passant()[1]))
-        # # when the pawn is a black piece
+        # # when the pawn == a black piece
         # elif self.is_player(Player.PLAYER_2):
-        #     # when the square right above is empty
+        #     # when the square right above == empty
         #     if game_state.get_piece(current_square_row - 1, current_square_col) == Player.EMPTY:
         #         # when the pawn has not been moved yet
         #         if self.get_row_number() == 6 and game_state.get_piece(current_square_row -2, current_square_col) == Player.EMPTY:
@@ -434,10 +434,10 @@ class King(Piece):
             evaluating_square = game_state.get_piece(new_row, new_col)
             # when the square with new_row and new_col contains a valid piece
             if game_state.is_valid_piece(new_row, new_col):
-                # when the king is white and the piece near the king is black
+                # when the king == white and the piece near the king == black
                 if self.is_player(Player.PLAYER_1) and evaluating_square.is_player(Player.PLAYER_2):
                     _moves.append((new_row, new_col))
-                # when the king is black and the piece near the king is white
+                # when the king == black and the piece near the king == white
                 elif self.is_player(Player.PLAYER_2) and evaluating_square.is_player(Player.PLAYER_1):
                     _moves.append((new_row, new_col))
         return _moves
@@ -451,7 +451,7 @@ class King(Piece):
             new_row = self.get_row_number() + row_change[i]
             new_col = self.get_col_number() + col_change[i]
             evaluating_square = game_state.get_piece(new_row, new_col)
-            # when the square with new_row and new_col is empty
+            # when the square with new_row and new_col == empty
             if evaluating_square == Player.EMPTY:
                 _moves.append((new_row, new_col))
 
@@ -478,15 +478,15 @@ class King(Piece):
         #     new_row = current_square_row + row_change[i]
         #     new_col = current_square_col + col_change[i]
         #     evaluating_square = game_state.get_piece(new_row, new_col)
-        #     # when the square with new_row and new_col is empty
+        #     # when the square with new_row and new_col == empty
         #     if evaluating_square == Player.EMPTY:
         #         _moves.append((new_row, new_col))
         #     # when the square with new_row and new_col contains a valid piece
         #     if game_state.is_valid_piece(new_row, new_col):
-        #         # when the king is white and the piece near the king is black
+        #         # when the king == white and the piece near the king == black
         #         if self.is_player(Player.PLAYER_1) and evaluating_square.is_player(Player.PLAYER_2):
         #             _moves.append((new_row, new_col))
-        #         # when the king is black and the piece near the king is white
+        #         # when the king == black and the piece near the king == white
         #         elif self.is_player(Player.PLAYER_2) and evaluating_square.is_player(Player.PLAYER_1):
         #             _moves.append((new_row, new_col))
         #

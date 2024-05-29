@@ -1,6 +1,10 @@
 import logging
 
 class ChessLogger:
+    """
+    this class is made to eliminate the log setup and such from the main as its already busy, no need to explain the functions or doc them
+    cuz they simply call out the log.respective function
+    """
     def __init__(self):
         self.logger = logging.getLogger('chess_logger')
         self.logger.setLevel(logging.DEBUG)

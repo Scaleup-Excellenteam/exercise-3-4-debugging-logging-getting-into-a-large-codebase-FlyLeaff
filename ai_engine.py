@@ -143,19 +143,6 @@ class chess_ai:
         if player is Player.PLAYER_1:
             if piece.is_player("black"):
                 if piece.get_name() == "k":
-                    return -1000
-                elif piece.get_name() == "q":
-                    return -100
-                elif piece.get_name() == "r":
-                    return -50
-                elif piece.get_name() == "b":
-                    return -30
-                elif piece.get_name() == "n":
-                    return -30
-                elif piece.get_name() == "p":
-                    return -10
-            else:
-                if piece.get_name() == "k":
                     return 1000
                 elif piece.get_name() == "q":
                     return 100
@@ -167,6 +154,19 @@ class chess_ai:
                     return 30
                 elif piece.get_name() == "p":
                     return 10
+            else:
+                if piece.get_name() == "k":
+                    return -1000
+                elif piece.get_name() == "q":
+                    return -100
+                elif piece.get_name() == "r":
+                    return -50
+                elif piece.get_name() == "b":
+                    return -30
+                elif piece.get_name() == "n":
+                    return -30
+                elif piece.get_name() == "p":
+                    return -10
         else:
             if piece.is_player("white"):
                 if piece.get_name() == "k":
