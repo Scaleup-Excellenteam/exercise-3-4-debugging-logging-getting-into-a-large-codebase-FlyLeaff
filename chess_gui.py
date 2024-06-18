@@ -196,14 +196,17 @@ def main():
             game_over = True
             chess_logger.info("Game over: Black wins.")
             draw_text(screen, "Black wins.")
+            running = False
         elif endgame == 1:
             game_over = True
             chess_logger.info("Game over: White wins.")
             draw_text(screen, "White wins.")
+            running = False
         elif endgame == 2:
             game_over = True
             chess_logger.info("Game over: Stalemate.")
             draw_text(screen, "Stalemate.")
+            running = False
 
         clock.tick(MAX_FPS)
         py.display.flip()
