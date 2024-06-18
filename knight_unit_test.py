@@ -1,40 +1,7 @@
-import pytest
-from unittest.mock import MagicMock
-from Piece import Knight, Pawn
+from Piece import  Pawn
 from enums import Player
-from chess_engine import game_state  # Import your game_state class
 
-@pytest.fixture
-def game_state_center():
-    gs = game_state()
-    # Overwrite the board with a blank 8x8 matrix
-    gs.board = [[Player.EMPTY for _ in range(8)] for _ in range(8)]
-    knight = Knight('n', 4, 4, Player.PLAYER_1)
-    gs.board[4][4] = knight
-
-    return gs
-
-@pytest.fixture
-def game_state_edge():
-    gs = game_state()
-    # Overwrite the board with a blank 8x8 matrix
-    gs.board = [[Player.EMPTY for _ in range(8)] for _ in range(8)]
-    knight = Knight('n', 0, 4, Player.PLAYER_1)
-    gs.board[0][4] = knight
-
-    return gs
-
-@pytest.fixture
-def game_state_corner():
-    gs = game_state()
-    # Overwrite the board with a blank 8x8 matrix
-    gs.board = [[Player.EMPTY for _ in range(8)] for _ in range(8)]
-    knight = Knight('n', 0, 0, Player.PLAYER_1)
-    gs.board[0][0] = knight
-
-    return gs
-
-
+from fixtures import game_state_center, game_state_corner,game_state_edge
 
 # Peaceful moves tests
     
