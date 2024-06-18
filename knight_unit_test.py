@@ -1,7 +1,7 @@
 from Piece import  Pawn
 from enums import Player
 
-from fixtures import game_state_center, game_state_corner,game_state_edge
+from fixtures import game_state_center, game_state_corner ,game_state_edge
 
 # Peaceful moves tests
     

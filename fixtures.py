@@ -6,6 +6,13 @@ from chess_engine import game_state  # Import your game_state class
 
 
 @pytest.fixture
+def game_state_empty():
+    gs = game_state()
+    # Overwrite the board with a blank 8x8 matrix
+    gs.board = [[Player.EMPTY for _ in range(8)] for _ in range(8)]
+    return gs
+
+@pytest.fixture
 def game_state_center():
     gs = game_state()
     # Overwrite the board with a blank 8x8 matrix
